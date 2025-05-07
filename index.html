@@ -36,6 +36,7 @@
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="js/employees-chart.js"></script>
+  <script src="js/employee-filters.js"></script>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130795909-1"></script>
@@ -45,16 +46,37 @@
 
 <div id="app">
 
-<nav id="navbar-main" class="navbar is-fixed-top">
-  <div class="navbar-menu" id="navbar-menu">
-    <div class="navbar-end">
-      <a title="Выйти href="login.html" class="navbar-item desktop-icon-only">
-        <span class="icon"><i class="mdi mdi-logout"></i></span>
-        <span>Выйти</span>
+  <nav id="navbar-main" class="navbar is-fixed-top">
+    <div class="navbar-brand is-right">
+      <a class="navbar-item --jb-navbar-menu-toggle" data-target="navbar-menu">
+        <span class="icon"><i class="mdi mdi-dots-vertical mdi-24px"></i></span>
       </a>
     </div>
-  </div>
-</nav>
+    <div class="navbar-menu" id="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item dropdown has-divider has-user-avatar">
+          <a class="navbar-link">
+            <div class="user-avatar">
+              <img src="./img/admin.webp" alt="John Doe" class="rounded-full">
+            </div>
+            <div class="is-user-name"><span>Администратор</span></div>
+            <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
+          </a>
+          <div class="navbar-dropdown">
+            <a href="profile.html" class="navbar-item">
+              <span class="icon"><i class="mdi mdi-account"></i></span>
+              <span>Мой профиль</span>
+            </a>
+            <hr class="navbar-divider">
+            <a class="navbar-item">
+              <span class="icon"><i class="mdi mdi-logout"></i></span>
+              <span>Выход</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
 
 <aside class="aside is-placed-left is-expanded">
   <div class="aside-tools">
@@ -72,68 +94,32 @@
         </a>
       </li>
     </ul>
-    <p class="menu-label">Персонал</p>
     <ul class="menu-list">
       <li>
-        <a class="dropdown" style="justify-content: center;">
-          <span class="menu-item-label" style="flex-grow: 0;">Управление кадрами</span>
-          <span class="icon"><i class="mdi mdi-plus"></i></span>
+        <a href="workingHours.html">
+          <span style="padding-left: 15px;">Учет рабочего времени</span>
         </a>
-        <ul>
-          <li>
-            <a href="recruitment.html">
-              <span>Подбор персонала</span>
-            </a>
-          </li>
-          <li>
-            <a href="employeeReception.html">
-              <span>Прием сотрудников</span>
-            </a>
-          </li>
-          <li>
-            <a href="workingHours.html">
-              <span>Учет рабочего времени</span>
-            </a>
-          </li>
-          <li>
-            <a href="monitoring.html">
-              <span>Контроль производительности</span>
-            </a>
-          </li>
-        </ul>
       </li>
     </ul>
-    <p class="menu-label">Отчетность</p>
     <ul class="menu-list">
-      <li>
-        <a class="dropdown" style="justify-content: center;">
-          <span class="menu-item-label" style="flex-grow: 0;">Аналитика и отчетность</span>
-          <span class="icon"><i class="mdi mdi-plus"></i></span>
-        </a>
-        <ul>
-          <li>
-            <a href="reports.html">
-              <span>Отчеты</span>
-            </a>
-          </li>
-          <li>
-            <a href="forecasting.html">
-              <span>Прогнозирование</span>
-            </a>
-          </li>
-          <li>
-            <a href="analysis.html">
-              <span>Анализ труда</span>
-            </a>
-          </li>
-        </ul>
-      </li>
+      <ul>
+        <li>
+          <a href="reports.html">
+            <span style="padding-left: 15px;">Отчеты</span>
+          </a>
+        </li>
+        <li>
+          <a href="forecasting.html">
+            <span style="padding-left: 15px;">Прогнозирование</span>
+          </a>
+        </li>
+      </ul>
     </ul>
     <ul class="menu-list">
       <li>
         <a href="login.html">
           <span class="icon"><i class="mdi mdi-lock"></i></span>
-          <span class="menu-item-label">Вход</span>
+          <span class="menu-item-label">Выход</span>
         </a>
       </li>
       <li>
@@ -159,19 +145,44 @@
 </section>
 
 <!-- Модальное окно добавления сотрудника -->
-<div id="add-employee-modal" class="modal">
+<!-- Модальное окно редактирования сотрудника -->
+<div id="edit-employee-modal" class="modal">
   <div class="modal-background --jb-modal-close"></div>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Добавление нового сотрудника</p>
+      <p class="modal-card-title">Редактирование данных сотрудника</p>
       <button class="delete --jb-modal-close" aria-label="close"></button>
     </header>
     <section class="modal-card-body">
       <form>
         <div class="field">
-          <label class="label">ФИО</label>
+          <label class="label">Фамилия</label>
           <div class="control">
-            <input class="input" type="text" placeholder="Введите ФИО">
+            <input class="input" type="text" placeholder="Введите фамилию" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Имя</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Введите имя" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Отчество</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Введите отчество">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Телефон</label>
+          <div class="control">
+            <input class="input" type="tel" placeholder="+7 (___) ___-__-__" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Email</label>
+          <div class="control">
+            <input class="input" type="email" placeholder="example@domain.com" required>
           </div>
         </div>
         <div class="field">
@@ -190,6 +201,96 @@
           <label class="label">Дата приема</label>
           <div class="control">
             <input class="input" type="date">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Роль</label>
+          <div class="control">
+            <div class="select">
+              <select required>
+                <option value="">Выберите роль</option>
+                <option value="admin">Администратор</option>
+                <option value="manager">Менеджер</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button green --jb-modal-close">Сохранить</button>
+      <button class="button --jb-modal-close">Отмена</button>
+    </footer>
+  </div>
+</div>
+
+<div id="add-employee-modal" class="modal">
+  <div class="modal-background --jb-modal-close"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Добавление нового сотрудника</p>
+      <button class="delete --jb-modal-close" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <form>
+        <div class="field">
+          <label class="label">Фамилия</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Введите фамилию" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Имя</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Введите имя" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Отчество</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Введите отчество">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Телефон</label>
+          <div class="control">
+            <input class="input" type="tel" placeholder="+7 (___) ___-__-__" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Email</label>
+          <div class="control">
+            <input class="input" type="email" placeholder="example@domain.com" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Должность</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Введите должность">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Отдел</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Введите отдел">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Дата приема</label>
+          <div class="control">
+            <input class="input" type="date">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Роль</label>
+          <div class="control">
+            <div class="select">
+              <select required>
+                <option value="">Выберите роль</option>
+                <option value="admin">Администратор</option>
+                <option value="manager">Менеджер</option>
+              </select>
+            </div>
           </div>
         </div>
       </form>
@@ -278,13 +379,51 @@
       </div>
     </div>
 
-    <div class="notification blue">
-      <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
-        <div>
-          <span class="icon"><i class="mdi mdi-buffer"></i></span>
-          <b>Таблица кадровых изменений</b>
+    <div class="card mb-6">
+      <header class="card-header">
+        <p class="card-header-title">
+          <span class="icon"><i class="mdi mdi-filter"></i></span>
+          Фильтры и поиск
+        </p>
+      </header>
+      <div class="card-content">
+        <div class="field">
+          <div class="field-body" style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px;">
+            <div class="field" style="width: 100%;">
+              <div class="control icons-left">
+                <input class="input" type="text" placeholder="Поиск по ФИО, должности или отделу" id="searchInput">
+                <span class="icon left"><i class="mdi mdi-magnify"></i></span>
+              </div>
+            </div>
+            <div class="field" style="width: 50%;">
+              <div class="control">
+                <div class="select">
+                  <select id="statusFilter">
+                    <option value="">Все статусы</option>
+                    <option value="Принят">Принят</option>
+                    <option value="Перевод">Перевод</option>
+                    <option value="Уволен">Уволен</option>
+                    <option value="В отпуске">В отпуске</option>
+                    <option value="На больничном">На больничном</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="field" style="width: 40%;">
+              <div class="control">
+                <input class="input" type="date" id="dateFilter">
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                <button class="button light" id="resetFilters">
+                  <span class="icon"><i class="mdi mdi-refresh"></i></span>
+                  <span>Сбросить</span>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-        <button type="button" class="button small textual --jb-notification-dismiss">Закрыть</button>
       </div>
     </div>
 
@@ -302,13 +441,11 @@
         <table >
           <thead>
           <tr>
-            <th></th>
             <th>ФИО</th>
             <th>Должность</th>
             <th>Отдел</th>
             <th>Статус</th>
             <th>Дата изменения</th>
-            <th></th>
           </tr>
           </thead>
           <tbody>
@@ -327,7 +464,7 @@
                 <button class="button small green --jb-modal"  data-target="sample-modal-2" type="button" title="Просмотреть">
                   <span class="icon"><i class="mdi mdi-eye"></i></span>
                 </button>
-                <button class="button small blue --jb-modal" data-target="sample-modal" type="button" title="Редактировать">
+                <button class="button small blue --jb-modal" data-target="edit-employee-modal" type="button" title="Редактировать">
                   <span class="icon"><i class="mdi mdi-pencil"></i></span>
                 </button>
               </div>
@@ -348,7 +485,7 @@
                 <button class="button small green --jb-modal"  data-target="sample-modal-2" type="button" title="Просмотреть">
                   <span class="icon"><i class="mdi mdi-eye"></i></span>
                 </button>
-                <button class="button small blue --jb-modal" data-target="sample-modal" type="button" title="Редактировать">
+                <button class="button small blue --jb-modal" data-target="edit-employee-modal" type="button" title="Редактировать">
                   <span class="icon"><i class="mdi mdi-pencil"></i></span>
                 </button>
               </div>
@@ -390,7 +527,7 @@
                 <button class="button small green --jb-modal" data-target="sample-modal-2" type="button" title="Просмотреть детали">
                   <span class="icon"><i class="mdi mdi-account-details"></i></span>
                 </button>
-                <button class="button small blue --jb-modal" data-target="sample-modal" type="button" title="Редактировать">
+                <button class="button small blue --jb-modal" data-target="edit-employee-modal" type="button" title="Редактировать">
                   <span class="icon"><i class="mdi mdi-pencil"></i></span>
                 </button>
               </div>
@@ -411,7 +548,7 @@
                 <button class="button small green --jb-modal" data-target="sample-modal-2" type="button" title="Просмотреть детали">
                   <span class="icon"><i class="mdi mdi-account-details"></i></span>
                 </button>
-                <button class="button small blue --jb-modal" data-target="sample-modal" type="button" title="Редактировать">
+                <button class="button small blue --jb-modal" data-target="edit-employee-modal" type="button" title="Редактировать">
                   <span class="icon"><i class="mdi mdi-pencil"></i></span>
                 </button>
               </div>
@@ -432,7 +569,7 @@
                 <button class="button small green --jb-modal" data-target="sample-modal-2" type="button" title="Просмотреть детали">
                   <span class="icon"><i class="mdi mdi-account-details"></i></span>
                 </button>
-                <button class="button small blue --jb-modal" data-target="sample-modal" type="button" title="Редактировать">
+                <button class="button small blue --jb-modal" data-target="edit-employee-modal" type="button" title="Редактировать">
                   <span class="icon"><i class="mdi mdi-pencil"></i></span>
                 </button>
               </div>
@@ -453,7 +590,7 @@
                 <button class="button small green --jb-modal" data-target="sample-modal-2" type="button" title="Просмотреть детали">
                   <span class="icon"><i class="mdi mdi-account-details"></i></span>
                 </button>
-                <button class="button small blue --jb-modal" data-target="sample-modal" type="button" title="Редактировать">
+                <button class="button small blue --jb-modal" data-target="edit-employee-modal" type="button" title="Редактировать">
                   <span class="icon"><i class="mdi mdi-pencil"></i></span>
                 </button>
               </div>
@@ -474,7 +611,7 @@
                 <button class="button small green --jb-modal" data-target="sample-modal-2" type="button" title="Просмотреть детали">
                   <span class="icon"><i class="mdi mdi-account-details"></i></span>
                 </button>
-                <button class="button small blue --jb-modal" data-target="sample-modal" type="button" title="Редактировать">
+                <button class="button small blue --jb-modal" data-target="edit-employee-modal" type="button" title="Редактировать">
                   <span class="icon"><i class="mdi mdi-pencil"></i></span>
                 </button>
               </div>
@@ -495,7 +632,7 @@
                 <button class="button small green --jb-modal" data-target="sample-modal-2" type="button" title="Просмотреть детали">
                   <span class="icon"><i class="mdi mdi-account-details"></i></span>
                 </button>
-                <button class="button small blue --jb-modal" data-target="sample-modal" type="button" title="Редактировать">
+                <button class="button small blue --jb-modal" data-target="edit-employee-modal" type="button" title="Редактировать">
                   <span class="icon"><i class="mdi mdi-pencil"></i></span>
                 </button>
               </div>
@@ -516,7 +653,7 @@
                 <button class="button small green --jb-modal" data-target="sample-modal-2" type="button" title="Просмотреть детали">
                   <span class="icon"><i class="mdi mdi-account-details"></i></span>
                 </button>
-                <button class="button small blue --jb-modal" data-target="sample-modal" type="button" title="Редактировать">
+                <button class="button small blue --jb-modal" data-target="edit-employee-modal" type="button" title="Редактировать">
                   <span class="icon"><i class="mdi mdi-pencil"></i></span>
                 </button>
               </div>

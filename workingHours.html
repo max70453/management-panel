@@ -106,7 +106,59 @@
   </div>
 </nav>
 
-<!-- вставить сюда когда будет готова боковая панель  -->
+<aside class="aside is-placed-left is-expanded">
+  <div class="aside-tools">
+    <div>
+      Панель управления <b class="font-black">персоналом</b>
+    </div>
+  </div>
+  <div class="menu is-menu-main">
+    <p class="menu-label">Главная</p>
+    <ul class="menu-list">
+      <li class="active">
+        <a href="index.html">
+          <span class="icon"><i class="mdi mdi-desktop-mac"></i></span>
+          <span class="menu-item-label">Панель управления</span>
+        </a>
+      </li>
+    </ul>
+    <ul class="menu-list">
+      <li>
+        <a href="workingHours.html">
+          <span style="padding-left: 15px;">Учет рабочего времени</span>
+        </a>
+      </li>
+    </ul>
+    <ul class="menu-list">
+      <ul>
+        <li>
+          <a href="reports.html">
+            <span style="padding-left: 15px;">Отчеты</span>
+          </a>
+        </li>
+        <li>
+          <a href="forecasting.html">
+            <span style="padding-left: 15px;">Прогнозирование</span>
+          </a>
+        </li>
+      </ul>
+    </ul>
+    <ul class="menu-list">
+      <li>
+        <a href="login.html">
+          <span class="icon"><i class="mdi mdi-lock"></i></span>
+          <span class="menu-item-label">Выход</span>
+        </a>
+      </li>
+      <li>
+        <a href="register.html">
+          <span class="icon"><i class="mdi mdi-account-plus"></i></span>
+          <span class="menu-item-label">Регистрация</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</aside>
 
 <section class="is-title-bar">
   <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
@@ -140,7 +192,7 @@
               <span class="fs-5">Посещаемость</span>
             </button>
           </li>
-          <li class="nav-item" role="presentation">
+          <!-- <li class="nav-item" role="presentation">
             <button class="nav-link d-flex align-items-center justify-content-center gap-2 py-3 px-4" 
                     data-bs-toggle="pill" 
                     data-bs-target="#overtime" 
@@ -161,7 +213,7 @@
               <i class="mdi mdi-calendar-check-outline mdi-24px"></i>
               <span class="fs-5">Отпуска/Больничные</span>
             </button>
-          </li>
+          </li> -->
         </ul>
       </div>
       
@@ -283,6 +335,41 @@
               </p>
             </header>
             <div class="card-content">
+              <!-- Поиск и фильтры -->
+              <div class="mb-4">
+                <div class="row g-3">
+                  <div class="col-md-4">
+                    <div class="field">
+                      <div class="control has-icons-left">
+                        <input type="text" class="input" id="searchInput" placeholder="Поиск по имени или отделу...">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="field">
+                      <div class="select is-fullwidth">
+                        <select id="statusFilter">
+                          <option value="">Все статусы</option>
+                          <option value="Вовремя">Вовремя</option>
+                          <option value="Опоздание">Опоздание</option>
+                          <option value="Отсутствует">Отсутствует</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="field">
+                      <input type="date" class="input" id="dateFilter">
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <button class="button is-light" id="resetFilters">
+                      <span class="icon"><i class="mdi mdi-refresh"></i></span>
+                      <span>Сбросить</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
               <div class="table-responsive">
                 <table class="table is-striped is-hoverable is-fullwidth">
                   <thead>
@@ -293,7 +380,6 @@
                       <th>Время прихода</th>
                       <th>Время ухода</th>
                       <th>Статус</th>
-                      <th>Действия</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -311,13 +397,6 @@
                       <td>09:00</td>
                       <td>18:00</td>
                       <td><span class="tag is-success">Вовремя</span></td>
-                      <td class="is-actions-cell">
-                        <div class="buttons is-right">
-                          <button class="button is-small is-light" type="button">
-                            <span class="icon"><i class="mdi mdi-eye"></i></span>
-                          </button>
-                        </div>
-                      </td>
                     </tr>
                     <tr>
                       <td class="is-image-cell">
@@ -333,13 +412,6 @@
                       <td>09:15</td>
                       <td>18:30</td>
                       <td><span class="tag is-warning">Опоздание</span></td>
-                      <td class="is-actions-cell">
-                        <div class="buttons is-right">
-                          <button class="button is-small is-light" type="button">
-                            <span class="icon"><i class="mdi mdi-eye"></i></span>
-                          </button>
-                        </div>
-                      </td>
                     </tr>
                     <tr>
                       <td class="is-image-cell">
@@ -355,13 +427,6 @@
                       <td>--:--</td>
                       <td>--:--</td>
                       <td><span class="tag is-danger">Отсутствует</span></td>
-                      <td class="is-actions-cell">
-                        <div class="buttons is-right">
-                          <button class="button is-small is-light" type="button">
-                            <span class="icon"><i class="mdi mdi-eye"></i></span>
-                          </button>
-                        </div>
-                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -419,6 +484,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 <script type="text/javascript" src="js/hr-management.js"></script>
+<script type="text/javascript" src="js/attendance.js"></script>
 
   <!-- Инициализация графика посещаемости -->
   <script>
