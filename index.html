@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Панель управления персоналом</title>
+
+  <!-- Tailwind is included -->
+  <link rel="stylesheet" href="css/main.css?v=1628755089081">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
+  <link rel="mask-icon" href="safari-pinned-tab.svg" color="#00b4b6"/>
+
+  <meta name="description" content="Система управления персоналом - эффективное управление кадрами">
+
+  <meta property="og:url" content="https://justboil.github.io/admin-one-tailwind/">
+  <meta property="og:site_name" content="JustBoil.me">
+  <meta property="og:title" content="Admin One HTML">
+  <meta property="og:description" content="Admin One - free Tailwind dashboard">
+  <meta property="og:image" content="https://justboil.me/images/one-tailwind/repository-preview-hi-res.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1920">
+  <meta property="og:image:height" content="960">
+
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="Admin One HTML">
+  <meta property="twitter:description" content="Admin One - free Tailwind dashboard">
+  <meta property="twitter:image:src" content="https://justboil.me/images/one-tailwind/repository-preview-hi-res.png">
+  <meta property="twitter:image:width" content="1920">
+  <meta property="twitter:image:height" content="960">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/employees-chart.js"></script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130795909-1"></script>
+
+</head>
+<body>
+
+<div id="app">
+
+<nav id="navbar-main" class="navbar is-fixed-top">
+  <div class="navbar-menu" id="navbar-menu">
+    <div class="navbar-end">
+      <a title="Выйти href="login.html" class="navbar-item desktop-icon-only">
+        <span class="icon"><i class="mdi mdi-logout"></i></span>
+        <span>Выйти</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<aside class="aside is-placed-left is-expanded">
+  <div class="aside-tools">
+    <div>
+      Панель управления <b class="font-black">персоналом</b>
+    </div>
+  </div>
+  <div class="menu is-menu-main">
+    <p class="menu-label">Главная</p>
+    <ul class="menu-list">
+      <li class="active">
+        <a href="index.html">
+          <span class="icon"><i class="mdi mdi-desktop-mac"></i></span>
+          <span class="menu-item-label">Панель управления</span>
+        </a>
+      </li>
+    </ul>
+    <p class="menu-label">Персонал</p>
+    <ul class="menu-list">
+      <li>
+        <a class="dropdown" style="justify-content: center;">
+          <span class="menu-item-label" style="flex-grow: 0;">Управление кадрами</span>
+          <span class="icon"><i class="mdi mdi-plus"></i></span>
+        </a>
+        <ul>
+          <li>
+            <a href="recruitment.html">
+              <span>Подбор персонала</span>
+            </a>
+          </li>
+          <li>
+            <a href="employeeReception.html">
+              <span>Прием сотрудников</span>
+            </a>
+          </li>
+          <li>
+            <a href="workingHours.html">
+              <span>Учет рабочего времени</span>
+            </a>
+          </li>
+          <li>
+            <a href="monitoring.html">
+              <span>Контроль производительности</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <p class="menu-label">Отчетность</p>
+    <ul class="menu-list">
+      <li>
+        <a class="dropdown" style="justify-content: center;">
+          <span class="menu-item-label" style="flex-grow: 0;">Аналитика и отчетность</span>
+          <span class="icon"><i class="mdi mdi-plus"></i></span>
+        </a>
+        <ul>
+          <li>
+            <a href="reports.html">
+              <span>Отчеты</span>
+            </a>
+          </li>
+          <li>
+            <a href="forecasting.html">
+              <span>Прогнозирование</span>
+            </a>
+          </li>
+          <li>
+            <a href="analysis.html">
+              <span>Анализ труда</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <ul class="menu-list">
+      <li>
+        <a href="login.html">
+          <span class="icon"><i class="mdi mdi-lock"></i></span>
+          <span class="menu-item-label">Вход</span>
+        </a>
+      </li>
+      <li>
+        <a href="register.html">
+          <span class="icon"><i class="mdi mdi-account-plus"></i></span>
+          <span class="menu-item-label">Регистрация</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</aside>
+
+<section class="is-hero-bar">
+  <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+    <h1 class="title">
+      Панель управления
+    </h1>
+    <button class="button blue --jb-modal" data-target="add-employee-modal" type="button">
+      <span class="icon"><i class="mdi mdi-account-plus"></i></span>
+      <span>Добавить сотрудника</span>
+    </button>
+  </div>
+</section>
+
+<!-- Модальное окно добавления сотрудника -->
+<div id="add-employee-modal" class="modal">
+  <div class="modal-background --jb-modal-close"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Добавление нового сотрудника</p>
+      <button class="delete --jb-modal-close" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <form>
+        <div class="field">
+          <label class="label">ФИО</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Введите ФИО">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Должность</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Введите должность">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Отдел</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Введите отдел">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Дата приема</label>
+          <div class="control">
+            <input class="input" type="date">
+          </div>
+        </div>
+      </form>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button green --jb-modal-close">Сохранить</button>
+      <button class="button --jb-modal-close">Отмена</button>
+    </footer>
+  </div>
+</div>
+
+  <section class="section main-section">
+    <div class="grid gap-6 grid-cols-1 md:grid-cols-3 mb-6">
+      <div class="card">
+        <div class="card-content">
+          <div class="flex items-center justify-between">
+            <div class="widget-label">
+              <h3>
+                Сотрудники
+              </h3>
+              <h1>
+                324
+              </h1>
+            </div>
+            <span class="icon widget-icon text-green-500"><i class="mdi mdi-account-group mdi-48px"></i></span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <div class="flex items-center justify-between">
+            <div class="widget-label">
+              <h3>
+                Текучесть кадров
+              </h3>
+              <h1>
+                12%
+              </h1>
+            </div>
+            <span class="icon widget-icon text-blue-500"><i class="mdi mdi-sync mdi-48px"></i></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-content">
+          <div class="flex items-center justify-between">
+            <div class="widget-label">
+              <h3>
+                Эффективность найма
+              </h3>
+              <h1>
+                87%
+              </h1>
+            </div>
+            <span class="icon widget-icon text-red-500"><i class="mdi mdi-chart-line-variant mdi-48px"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-6">
+      <header class="card-header">
+        <p class="card-header-title">
+          <span class="icon"><i class="mdi mdi-trending-up"></i></span>
+          Динамика роста персонала
+        </p>
+        <a href="#" class="card-header-icon">
+          <span class="icon"><i class="mdi mdi-reload"></i></span>
+        </a>
+      </header>
+      <div class="card-content">
+        <div class="chart-area">
+          <div class="h-full">
+            <div class="chartjs-size-monitor">
+              <div class="chartjs-size-monitor-expand">
+                <div></div>
+              </div>
+              <div class="chartjs-size-monitor-shrink">
+                <div></div>
+              </div>
+            </div>
+            <canvas id="employees-growth-chart" width="2992" height="1000" class="chartjs-render-monitor block" style="height: 400px; width: 1197px;"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="notification blue">
+      <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
+        <div>
+          <span class="icon"><i class="mdi mdi-buffer"></i></span>
+          <b>Таблица кадровых изменений</b>
+        </div>
+        <button type="button" class="button small textual --jb-notification-dismiss">Закрыть</button>
+      </div>
+    </div>
+
+    <div class="card has-table">
+      <header class="card-header">
+        <p class="card-header-title">
+          <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
+          Последние кадровые изменения
+        </p>
+        <a href="#" class="card-header-icon">
+          <span class="icon"><i class="mdi mdi-reload"></i></span>
+        </a>
+      </header>
+      <div class="card-content">
+        <table >
+          <thead>
+          <tr>
+            <th></th>
+            <th>ФИО</th>
+            <th>Должность</th>
+            <th>Отдел</th>
+            <th>Статус</th>
+            <th>Дата изменения</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td data-label="ФИО">Иванов Иван Иванович</td>
+            <td data-label="Должность">Старший разработчик</td>
+            <td data-label="Отдел">Разработка ПО</td>
+            <td data-label="Статус" class="progress-cell">
+              <span class="text-green-500">Принят</span>
+            </td>
+            <td data-label="Дата изменения">
+              <small class="text-gray-500" title="25.10.2025">25.10.2025</small>
+            </td>
+            <td class="actions-cell">
+              <div class="buttons right nowrap">
+                <button class="button small green --jb-modal"  data-target="sample-modal-2" type="button" title="Просмотреть">
+                  <span class="icon"><i class="mdi mdi-eye"></i></span>
+                </button>
+                <button class="button small blue --jb-modal" data-target="sample-modal" type="button" title="Редактировать">
+                  <span class="icon"><i class="mdi mdi-pencil"></i></span>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td data-label="ФИО">Петрова Анна Сергеевна</td>
+            <td data-label="Должность">HR-менеджер</td>
+            <td data-label="Отдел">Отдел кадров</td>
+            <td data-label="Статус" class="progress-cell">
+              <span class="text-blue-500">Перевод</span>
+            </td>
+            <td data-label="Дата изменения">
+              <small class="text-gray-500" title="20.10.2025">20.10.2025</small>
+            </td>
+            <td class="actions-cell">
+              <div class="buttons right nowrap">
+                <button class="button small green --jb-modal"  data-target="sample-modal-2" type="button" title="Просмотреть">
+                  <span class="icon"><i class="mdi mdi-eye"></i></span>
+                </button>
+                <button class="button small blue --jb-modal" data-target="sample-modal" type="button" title="Редактировать">
+                  <span class="icon"><i class="mdi mdi-pencil"></i></span>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td data-label="ФИО">Сидоров Петр Сергеевич</td>
+            <td data-label="Должность">Менеджер проектов</td>
+            <td data-label="Отдел">Управление проектами</td>
+            <td data-label="Статус" class="progress-cell">
+              <span class="text-red-500">Уволен</span>
+            </td>
+            <td data-label="Дата изменения">
+              <small class="text-gray-500" title="15.10.2025">15.10.2025</small>
+            </td>
+            <td class="actions-cell">
+              <div class="buttons right nowrap">
+                <button class="button small green --jb-modal" data-target="sample-modal-2" type="button" title="Просмотреть детали">
+                  <span class="icon"><i class="mdi mdi-account-details"></i></span>
+                </button>
+                <button class="button small red --jb-modal" data-target="sample-modal" type="button" title="Архивировать">
+                  <span class="icon"><i class="mdi mdi-archive"></i></span>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td data-label="ФИО">Козлов Дмитрий Михайлович</td>
+            <td data-label="Должность">Системный аналитик</td>
+            <td data-label="Отдел">Аналитический отдел</td>
+            <td data-label="Статус" class="progress-cell">
+              <span class="text-yellow-500">В отпуске</span>
+            </td>
+            <td data-label="Дата изменения">
+              <small class="text-gray-500" title="12.10.2025">12.10.2025</small>
+            </td>
+            <td class="actions-cell">
+              <div class="buttons right nowrap">
+                <button class="button small green --jb-modal" data-target="sample-modal-2" type="button" title="Просмотреть детали">
+                  <span class="icon"><i class="mdi mdi-account-details"></i></span>
+                </button>
+                <button class="button small blue --jb-modal" data-target="sample-modal" type="button" title="Редактировать">
+                  <span class="icon"><i class="mdi mdi-pencil"></i></span>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td data-label="ФИО">Новикова Елена Александровна</td>
+            <td data-label="Должность">Бухгалтер</td>
+            <td data-label="Отдел">Финансовый отдел</td>
+            <td data-label="Статус" class="progress-cell">
+              <span class="text-purple-500">На больничном</span>
+            </td>
+            <td data-label="Дата изменения">
+              <small class="text-gray-500" title="10.10.2025">10.10.2025</small>
+            </td>
+            <td class="actions-cell">
+              <div class="buttons right nowrap">
+                <button class="button small green --jb-modal" data-target="sample-modal-2" type="button" title="Просмотреть детали">
+                  <span class="icon"><i class="mdi mdi-account-details"></i></span>
+                </button>
+                <button class="button small blue --jb-modal" data-target="sample-modal" type="button" title="Редактировать">
+                  <span class="icon"><i class="mdi mdi-pencil"></i></span>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td data-label="ФИО">Морозов Андрей Владимирович</td>
+            <td data-label="Должность">Дизайнер</td>
+            <td data-label="Отдел">Отдел дизайна</td>
+            <td data-label="Статус" class="progress-cell">
+              <span class="text-green-500">Принят</span>
+            </td>
+            <td data-label="Дата изменения">
+              <small class="text-gray-500" title="08.10.2025">08.10.2025</small>
+            </td>
+            <td class="actions-cell">
+              <div class="buttons right nowrap">
+                <button class="button small green --jb-modal" data-target="sample-modal-2" type="button" title="Просмотреть детали">
+                  <span class="icon"><i class="mdi mdi-account-details"></i></span>
+                </button>
+                <button class="button small blue --jb-modal" data-target="sample-modal" type="button" title="Редактировать">
+                  <span class="icon"><i class="mdi mdi-pencil"></i></span>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td data-label="ФИО">Соколова Мария Викторовна</td>
+            <td data-label="Должность">Маркетолог</td>
+            <td data-label="Отдел">Отдел маркетинга</td>
+            <td data-label="Статус" class="progress-cell">
+              <span class="text-blue-500">Перевод</span>
+            </td>
+            <td data-label="Дата изменения">
+              <small class="text-gray-500" title="05.10.2025">05.10.2025</small>
+            </td>
+            <td class="actions-cell">
+              <div class="buttons right nowrap">
+                <button class="button small green --jb-modal" data-target="sample-modal-2" type="button" title="Просмотреть детали">
+                  <span class="icon"><i class="mdi mdi-account-details"></i></span>
+                </button>
+                <button class="button small blue --jb-modal" data-target="sample-modal" type="button" title="Редактировать">
+                  <span class="icon"><i class="mdi mdi-pencil"></i></span>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td data-label="ФИО">Волков Сергей Алексеевич</td>
+            <td data-label="Должность">Тестировщик</td>
+            <td data-label="Отдел">Отдел тестирования</td>
+            <td data-label="Статус" class="progress-cell">
+              <span class="text-green-500">Принят</span>
+            </td>
+            <td data-label="Дата изменения">
+              <small class="text-gray-500" title="01.10.2025">01.10.2025</small>
+            </td>
+            <td class="actions-cell">
+              <div class="buttons right nowrap">
+                <button class="button small green --jb-modal" data-target="sample-modal-2" type="button" title="Просмотреть детали">
+                  <span class="icon"><i class="mdi mdi-account-details"></i></span>
+                </button>
+                <button class="button small blue --jb-modal" data-target="sample-modal" type="button" title="Редактировать">
+                  <span class="icon"><i class="mdi mdi-pencil"></i></span>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td data-label="ФИО">Кузнецова Ольга Андреевна</td>
+            <td data-label="Должность">Менеджер по продажам</td>
+            <td data-label="Отдел">Отдел продаж</td>
+            <td data-label="Статус" class="progress-cell">
+              <span class="text-yellow-500">В отпуске</span>
+            </td>
+            <td data-label="Дата изменения">
+              <small class="text-gray-500" title="28.09.2025">28.09.2025</small>
+            </td>
+            <td class="actions-cell">
+              <div class="buttons right nowrap">
+                <button class="button small green --jb-modal" data-target="sample-modal-2" type="button" title="Просмотреть детали">
+                  <span class="icon"><i class="mdi mdi-account-details"></i></span>
+                </button>
+                <button class="button small blue --jb-modal" data-target="sample-modal" type="button" title="Редактировать">
+                  <span class="icon"><i class="mdi mdi-pencil"></i></span>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td data-label="ФИО">Попов Игорь Николаевич</td>
+            <td data-label="Должность">Системный администратор</td>
+            <td data-label="Отдел">IT-отдел</td>
+            <td data-label="Статус" class="progress-cell">
+              <span class="text-purple-500">На больничном</span>
+            </td>
+            <td data-label="Дата изменения">
+              <small class="text-gray-500" title="25.09.2025">25.09.2025</small>
+            </td>
+            <td class="actions-cell">
+              <div class="buttons right nowrap">
+                <button class="button small green --jb-modal" data-target="sample-modal-2" type="button" title="Просмотреть детали">
+                  <span class="icon"><i class="mdi mdi-account-details"></i></span>
+                </button>
+                <button class="button small blue --jb-modal" data-target="sample-modal" type="button" title="Редактировать">
+                  <span class="icon"><i class="mdi mdi-pencil"></i></span>
+                </button>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="table-pagination bg-white p-4 rounded-lg shadow-lg">
+          <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+            <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
+              <div class="flex items-center">
+                <span class="text-gray-700 font-medium mr-3">Показать:</span>
+                <select class="px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 hover:bg-gray-100">
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="30">30</option>
+                  <option value="40">40</option>
+                </select>
+              </div>
+              <div class="flex items-center space-x-2">
+                <button type="button" class="p-2 text-gray-600 bg-gray-100 rounded-lg hover:bg-blue-500 hover:text-white transition-all duration-200" title="Первая страница">
+                  <span class="icon"><i class="mdi mdi-chevron-double-left"></i></span>
+                </button>
+                <button type="button" class="p-2 text-gray-600 bg-gray-100 rounded-lg hover:bg-blue-500 hover:text-white transition-all duration-200" title="Предыдущая страница">
+                  <span class="icon"><i class="mdi mdi-chevron-left"></i></span>
+                </button>
+                <button type="button" class="px-4 py-2 text-white bg-blue-500 rounded-lg font-medium hover:bg-blue-600 transition-all duration-200">1</button>
+                <button type="button" class="px-4 py-2 text-gray-600 bg-gray-100 rounded-lg hover:bg-blue-500 hover:text-white transition-all duration-200">2</button>
+                <button type="button" class="px-4 py-2 text-gray-600 bg-gray-100 rounded-lg hover:bg-blue-500 hover:text-white transition-all duration-200">3</button>
+                <button type="button" class="p-2 text-gray-600 bg-gray-100 rounded-lg hover:bg-blue-500 hover:text-white transition-all duration-200" title="Следующая страница">
+                  <span class="icon"><i class="mdi mdi-chevron-right"></i></span>
+                </button>
+                <button type="button" class="p-2 text-gray-600 bg-gray-100 rounded-lg hover:bg-blue-500 hover:text-white transition-all duration-200" title="Последняя страница">
+                  <span class="icon"><i class="mdi mdi-chevron-double-right"></i></span>
+                </button>
+              </div>
+            </div>
+            <div class="text-sm text-gray-600 font-medium">Страница 1 из 3</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<div id="sample-modal" class="modal">
+  <div class="modal-background --jb-modal-close"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Редактирование данных сотрудника</p>
+    </header>
+    <section class="modal-card-body">
+      <div class="field">
+        <label class="label">ФИО</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Введите ФИО">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Должность</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Введите должность">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Отдел</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Введите отдел">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Статус</label>
+        <div class="control">
+          <div class="select">
+            <select>
+              <option>Принят</option>
+              <option>В отпуске</option>
+              <option>На больничном</option>
+              <option>Уволен</option>
+              <option>Перевод</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button --jb-modal-close">Отмена</button>
+      <button class="button blue --jb-modal-close">Сохранить</button>
+    </footer>
+  </div>
+</div>
+
+<div id="sample-modal-2" class="modal">
+  <div class="modal-background --jb-modal-close"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Информация о сотруднике</p>
+    </header>
+    <section class="modal-card-body">
+      <div class="field">
+        <label class="label">Контактная информация</label>
+        <div class="control">
+          <p><strong>Email:</strong> employee@company.com</p>
+          <p><strong>Телефон:</strong> +7 (949) 123-45-67</p>
+          <p><strong>Адрес:</strong> г. Донецк, ул. Примерная, д. 1</p>
+        </div>
+      </div>
+      <div class="field mt-4">
+        <label class="label">История изменений</label>
+        <div class="control">
+          <div class=" is-light is-info">
+            <p><strong>20.10.2025</strong> - Перевод в отдел разработки</p>
+          </div>
+          <div class=" is-light is-success">
+            <p><strong>15.09.2025</strong> - Повышение в должности</p>
+          </div>
+          <div class=" is-light is-warning">
+            <p><strong>01.08.2025</strong> - Отпуск (14 дней)</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button --jb-modal-close">Закрыть</button>
+    </footer>
+  </div>
+</div>
+
+</div>
+
+<!-- Scripts below are for demo only -->
+<script type="text/javascript" src="js/main.min.js?v=1628755089081"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+<script type="text/javascript" src="js/chart.sample.min.js"></script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=658339141622648&ev=PageView&noscript=1"/></noscript>
+
+<!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
+<link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+
+</body>
+</html>

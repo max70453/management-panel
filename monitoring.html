@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ru" class="">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Управление кадрами - Панель управления</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Tailwind is included -->
+  <link rel="stylesheet" href="css/main.css?v=1628755089081">
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <!-- Material Design Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
+  <link rel="mask-icon" href="safari-pinned-tab.svg" color="#00b4b6"/>
+
+  <meta name="description" content="Система управления персоналом">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Инициализация графика KPI
+      const kpiCtx = document.getElementById('kpiChart').getContext('2d');
+      new Chart(kpiCtx, {
+        type: 'line',
+        data: {
+          labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн'],
+          datasets: [{
+            label: 'Эффективность',
+            data: [65, 72, 78, 75, 82, 85],
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.3,
+            fill: false
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Динамика KPI за 6 месяцев',
+              font: {
+                size: 16
+              }
+            },
+            legend: {
+              position: 'bottom'
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100
+            }
+          }
+        }
+      });
+
+      // Инициализация всех тултипов Bootstrap
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+    });
+  </script>
+</head>
+<body>
+
+<div id="app">
+
+<nav id="navbar-main" class="navbar is-fixed-top">
+  <div class="navbar-brand is-right">
+    <a class="navbar-item --jb-navbar-menu-toggle" data-target="navbar-menu">
+      <span class="icon"><i class="mdi mdi-dots-vertical mdi-24px"></i></span>
+    </a>
+  </div>
+  <div class="navbar-menu" id="navbar-menu">
+    <div class="navbar-end">
+      <div class="navbar-item dropdown has-divider has-user-avatar">
+        <a class="navbar-link">
+          <div class="user-avatar">
+            <img src="./img/admin.webp" alt="John Doe" class="rounded-full">
+          </div>
+          <div class="is-user-name"><span>Администратор</span></div>
+          <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
+        </a>
+        <div class="navbar-dropdown">
+          <a href="profile.html" class="navbar-item">
+            <span class="icon"><i class="mdi mdi-account"></i></span>
+            <span>Мой профиль</span>
+          </a>
+          <hr class="navbar-divider">
+          <a class="navbar-item">
+            <span class="icon"><i class="mdi mdi-logout"></i></span>
+            <span>Выход</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- вставить сюда когда будет готова боковая панель  -->
+
+<section class="is-title-bar">
+  <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+    <ul>
+      <li>Управление</li>
+      <li>Кадры</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section main-section">
+  <!-- Контроль производительности -->
+  <div class="card mb-6 stat-card animate__animated animate__fadeIn">
+    <header class="card-header d-flex justify-content-between align-items-center p-4">
+      <p class="card-header-title mb-0">
+        <span class="icon me-3"><i class="mdi mdi-chart-line mdi-24px"></i></span>
+        <span class="h4 mb-0">Контроль производительности</span>
+      </p>
+    </header>
+    <div class="card-content p-4">
+      <div class="nav-tabs-wrapper mb-4" id="performance-tabs">
+        <ul class="nav nav-pills nav-fill gap-3" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active d-flex align-items-center justify-content-center gap-2 py-3 px-4" 
+                    data-bs-toggle="pill" 
+                    data-bs-target="#kpi" 
+                    type="button" 
+                    role="tab" 
+                    aria-selected="true">
+              <i class="mdi mdi-chart-bar mdi-24px"></i>
+              <span class="fs-5">KPI</span>
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link d-flex align-items-center justify-content-center gap-2 py-3 px-4" 
+                    data-bs-toggle="pill" 
+                    data-bs-target="#reviews" 
+                    type="button" 
+                    role="tab" 
+                    aria-selected="false">
+              <i class="mdi mdi-star-outline mdi-24px"></i>
+              <span class="fs-5">Оценка</span>
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link d-flex align-items-center justify-content-center gap-2 py-3 px-4" 
+                    data-bs-toggle="pill" 
+                    data-bs-target="#reports" 
+                    type="button" 
+                    role="tab" 
+                    aria-selected="false">
+              <i class="mdi mdi-file-document-outline mdi-24px"></i>
+              <span class="fs-5">Отчеты</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="tab-content" id="performance-content">
+        <!-- KPI -->
+        <div class="tab-pane fade show active" id="kpi" role="tabpanel">
+          <div class="row g-4">
+            <div class="col-md-6">
+              <div class="stat-card notification is-info is-light h-100 p-4">
+                <canvas id="kpiChart" width="400" height="300"></canvas>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="stat-card notification is-success is-light h-100 p-4">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Показатель</th>
+                        <th>План</th>
+                        <th>Факт</th>
+                        <th>Статус</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Выполнение задач</td>
+                        <td>90%</td>
+                        <td>95%</td>
+                        <td><span class="badge bg-success">Выполнено</span></td>
+                      </tr>
+                      <tr>
+                        <td>Качество работы</td>
+                        <td>85%</td>
+                        <td>82%</td>
+                        <td><span class="badge bg-warning">В процессе</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Оценка -->
+        <div class="tab-pane fade" id="reviews" role="tabpanel">
+          <div class="stat-card notification is-light p-4">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Сотрудник</th>
+                    <th>Отдел</th>
+                    <th>Оценка</th>
+                    <th>Комментарий</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Иван Петров</td>
+                    <td>IT отдел</td>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <i class="mdi mdi-star text-warning"></i>
+                        <i class="mdi mdi-star text-warning"></i>
+                        <i class="mdi mdi-star text-warning"></i>
+                        <i class="mdi mdi-star text-warning"></i>
+                        <i class="mdi mdi-star-outline text-warning"></i>
+                      </div>
+                    </td>
+                    <td>Отличная работа над проектом</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Отчеты -->
+        <div class="tab-pane fade" id="reports" role="tabpanel">
+          <div class="row g-4">
+            <div class="col-12">
+              <div class="stat-card notification is-light p-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                  <h5 class="mb-0">Отчеты по эффективности</h5>
+                  <button class="button blue">
+                    <span class="icon"><i class="mdi mdi-download"></i></span>
+                    <span>Скачать отчет</span>
+                  </button>
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Название отчета</th>
+                        <th>Период</th>
+                        <th>Статус</th>
+                        <th>Действия</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Квартальный отчет</td>
+                        <td>Q3 2023</td>
+                        <td><span class="badge bg-success">Готов</span></td>
+                        <td>
+                          <div class="buttons">
+                            <button class="button is-small is-info" title="Просмотр">
+                              <span class="icon"><i class="mdi mdi-eye"></i></span>
+                            </button>
+                            <button class="button is-small is-success" title="Скачать">
+                              <span class="icon"><i class="mdi mdi-download"></i></span>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/hr-management.js"></script>
+
+  <!-- Инициализация графика посещаемости -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const ctx = document.getElementById('attendanceChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['1 Янв', '2 Янв', '3 Янв', '4 Янв', '5 Янв', '6 Янв', '7 Янв', '8 Янв', '9 Янв', '10 Янв'],
+          datasets: [{
+            label: 'Присутствие',
+            data: [42, 45, 43, 40, 41, 38, 39, 44, 45, 42],
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1,
+            fill: false
+          }, {
+            label: 'Опоздания',
+            data: [5, 3, 4, 6, 4, 5, 3, 2, 4, 5],
+            borderColor: 'rgb(255, 205, 86)',
+            tension: 0.1,
+            fill: false
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+            title: {
+              display: false
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Количество сотрудников'
+              }
+            },
+            x: {
+              title: {
+                display: true,
+                text: 'Дата'
+              }
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

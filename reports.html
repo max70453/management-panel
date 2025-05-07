@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ru" class="">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Управление кадрами - Панель управления</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Tailwind is included -->
+  <link rel="stylesheet" href="css/main.css?v=1628755089081">
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <!-- Material Design Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
+  <link rel="mask-icon" href="safari-pinned-tab.svg" color="#00b4b6"/>
+
+  <meta name="description" content="Система управления персоналом">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Инициализация графика текучести кадров
+      const turnoverCtx = document.getElementById('turnoverChart').getContext('2d');
+      new Chart(turnoverCtx, {
+        type: 'line',
+        data: {
+          labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн'],
+          datasets: [{
+            label: 'Текучесть кадров (%)',
+            data: [12, 15, 10, 8, 11, 9],
+            borderColor: 'rgb(255, 99, 132)',
+            tension: 0.3,
+            fill: false
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Динамика текучести кадров за 6 месяцев',
+              font: {
+                size: 16
+              }
+            },
+            legend: {
+              position: 'bottom'
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100
+            }
+          }
+        }
+      });
+
+      // Инициализация графика эффективности найма
+      const hiringCtx = document.getElementById('hiringChart').getContext('2d');
+      new Chart(hiringCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн'],
+          datasets: [{
+            label: 'Успешные наймы',
+            data: [8, 12, 15, 10, 14, 16],
+            backgroundColor: 'rgb(75, 192, 192)'
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Эффективность найма по месяцам',
+              font: {
+                size: 16
+              }
+            },
+            legend: {
+              position: 'bottom'
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+
+      // Инициализация диаграммы распределения по отделам
+      const departmentCtx = document.getElementById('departmentChart').getContext('2d');
+      new Chart(departmentCtx, {
+        type: 'pie',
+        data: {
+          labels: ['IT', 'Маркетинг', 'Продажи', 'HR', 'Финансы'],
+          datasets: [{
+            data: [45, 35, 65, 25, 35],
+            backgroundColor: [
+              'rgb(255, 99, 132)',
+              'rgb(54, 162, 235)',
+              'rgb(255, 206, 86)',
+              'rgb(75, 192, 192)',
+              'rgb(153, 102, 255)'
+            ]
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Распределение сотрудников по отделам',
+              font: {
+                size: 16
+              }
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }
+      });
+
+      // Инициализация всех тултипов Bootstrap
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+    });
+  </script>
+</head>
+<body>
+
+<div id="app">
+
+<nav id="navbar-main" class="navbar is-fixed-top">
+  <div class="navbar-brand is-right">
+    <a class="navbar-item --jb-navbar-menu-toggle" data-target="navbar-menu">
+      <span class="icon"><i class="mdi mdi-dots-vertical mdi-24px"></i></span>
+    </a>
+  </div>
+  <div class="navbar-menu" id="navbar-menu">
+    <div class="navbar-end">
+      <div class="navbar-item dropdown has-divider has-user-avatar">
+        <a class="navbar-link">
+          <div class="user-avatar">
+            <img src="./img/admin.webp" alt="John Doe" class="rounded-full">
+          </div>
+          <div class="is-user-name"><span>Администратор</span></div>
+          <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
+        </a>
+        <div class="navbar-dropdown">
+          <a href="profile.html" class="navbar-item">
+            <span class="icon"><i class="mdi mdi-account"></i></span>
+            <span>Мой профиль</span>
+          </a>
+          <hr class="navbar-divider">
+          <a class="navbar-item">
+            <span class="icon"><i class="mdi mdi-logout"></i></span>
+            <span>Выход</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- вставить сюда когда будет готова боковая панель  -->
+
+<section class="is-title-bar">
+  <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+    <ul>
+      <li>Аналитика и</li>
+      <li>Отчетность</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section main-section">
+  <!-- Фильтры отчетов -->
+  <div class="card mb-6">
+    <header class="card-header">
+      <p class="card-header-title">
+        <span class="icon"><i class="mdi mdi-filter"></i></span>
+        Параметры отчета
+      </p>
+    </header>
+    <div class="card-content">
+      <div class="field is-horizontal">
+        <div class="field-body">
+          <div class="field">
+            <label class="label">Тип отчета</label>
+            <div class="control">
+              <div class="select">
+                <select id="reportType">
+                  <option value="operational">Оперативный отчет</option>
+                  <option value="periodic">Периодический отчет</option>
+                  <option value="custom">Настраиваемый отчет</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Период</label>
+            <div class="control">
+              <div class="select">
+                <select id="reportPeriod">
+                  <option value="day">День</option>
+                  <option value="week">Неделя</option>
+                  <option value="month">Месяц</option>
+                  <option value="quarter">Квартал</option>
+                  <option value="year">Год</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Метрики</label>
+            <div class="control">
+              <label class="checkbox">
+                <input type="checkbox" value="turnover" checked>
+                Текучесть кадров
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" value="hiring" checked>
+                Эффективность найма
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" value="distribution" checked>
+                Распределение по отделам
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Графики и диаграммы -->
+  <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 mb-6">
+    <!-- График текучести кадров -->
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title">
+          <span class="icon"><i class="mdi mdi-account-group"></i></span>
+          Текучесть кадров
+        </p>
+      </header>
+      <div class="card-content">
+        <canvas id="turnoverChart"></canvas>
+      </div>
+    </div>
+
+    <!-- График эффективности найма -->
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title">
+          <span class="icon"><i class="mdi mdi-chart-line"></i></span>
+          Эффективность найма
+        </p>
+      </header>
+      <div class="card-content">
+        <canvas id="hiringChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Диаграмма распределения по отделам -->
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title">
+          <span class="icon"><i class="mdi mdi-chart-pie"></i></span>
+          Распределение по отделам
+        </p>
+      </header>
+      <div class="card-content">
+        <canvas id="departmentChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Сводная статистика -->
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title">
+          <span class="icon"><i class="mdi mdi-clipboard-list"></i></span>
+          Сводная статистика
+        </p>
+      </header>
+      <div class="card-content">
+        <div class="grid grid-cols-1 gap-4">
+          <div class="flex items-center">
+            <div class="flex-1">
+              <p class="text-lg font-semibold">Общее количество сотрудников</p>
+              <p class="text-3xl font-bold text-blue-500" id="totalEmployees">245</p>
+            </div>
+          </div>
+          <div class="flex items-center">
+            <div class="flex-1">
+              <p class="text-lg font-semibold">Средний стаж работы</p>
+              <p class="text-3xl font-bold text-green-500" id="averageExperience">3.5 года</p>
+            </div>
+          </div>
+          <div class="flex items-center">
+            <div class="flex-1">
+              <p class="text-lg font-semibold">Коэффициент текучести</p>
+              <p class="text-3xl font-bold text-orange-500" id="turnoverRate">12%</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/hr-management.js"></script>
+
+</body>
+</html>
