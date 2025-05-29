@@ -1,0 +1,16 @@
+{
+    "name": "management-panel/backend",
+    "description": "Backend for Management Panel",
+    "type": "project",
+    "require": {
+        "php": ">=7.4",
+        "gabordemooij/redbean": "^5.7",
+        "vlucas/phpdotenv": "^5.5",
+        "firebase/php-jwt": "^6.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+} 
